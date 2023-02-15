@@ -13,7 +13,7 @@ import dummyData from "./data/dummy";
 SplashScreen.preventAutoHideAsync();
 
 const Cards = () => {
-  const [data, setData] = useState("");
+  const [data, setData] = useState([]);
   const [img, setImg] = useState([]);
   const [newData, setNewData] = useState([]);
   const objMovie = [];
@@ -44,23 +44,19 @@ const Cards = () => {
   };
 
   const takeImg = async (arr) => {
-    for (let i = 0; i < 2; i++) {
-    const dataZero = data[i]
-
+    for (let i = 0; i < 10; i++) {
+      const dataZero = data[i];
 
       const request = await axios.get(
         `https://www.omdbapi.com/?t=${dataZero}&apikey=515aac75`
       );
-      
-      const response = request.data
-      
+
+
+      const response = request.data;
 
       // console.log("ini blm set state",response)
-    newData.push(response)
+      newData.push(response);
     }
-
-
-
 
     // console.log(`ini array ke-${i}`)
 
@@ -71,12 +67,12 @@ const Cards = () => {
     // console.log("response new title", myResponse)
   };
 
-  console.log("ini sudah set state", newData[0])
+  // console.log("ini sudah set state", newData)
 
   // takeImg("avatar");
   useEffect(() => {
     takeMovie();
-    takeImg(data);
+    takeImg();
   }, []);
 
   return (
@@ -91,19 +87,29 @@ const Cards = () => {
       {/* {data.map((item, i) => {
         setimgData(item.title);
       })} */}
-      {/* <ScrollView horizontal={true}>
-        {data &&
-          data.map((item, i) => {
+      <ScrollView horizontal={true}>
+        {newData &&
+          newData.map((item, i) => {
             return (
-              <View key={i} className="flex items-center justify-center  rounded-md mx-2 bg-black" style={{ width: 120 }}>
-                <Image style={{ width: 100, height: 100 }} source={{ uri: item.image }} />
-                <Text className="text-white text-center" style={{ fontFamily: "Inter-Medium" }}>
-                  {item}
+              <View
+                key={i}
+                className="flex items-center justify-center  rounded-md mx-2 bg-black"
+                style={{ width: 120 }}
+              >
+                <Image
+                  style={{ width: 100, height: 100 }}
+                  source={{ uri: item.Poster }}
+                />
+                <Text
+                  className="text-white text-center"
+                  style={{ fontFamily: "Inter-Medium" }}
+                >
+                  {item.Title}
                 </Text>
               </View>
             );
           })}
-      </ScrollView> */}
+      </ScrollView>
       {/* <FlatList data={data} renderItem={renderItem} horizontal={true} ListFooterComponent={renderLoader} /> */}
     </View>
   );
