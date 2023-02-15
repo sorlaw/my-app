@@ -7,54 +7,83 @@ import AntDesign from "react-native-vector-icons/AntDesign";
 import * as React from "react";
 import { useState, useEffect } from "react";
 
+//dummy data
+import dummyData from "./data/dummy";
+
 SplashScreen.preventAutoHideAsync();
 
 const Cards = () => {
-  const [data, setData] = useState([]);
+  const [data, setData] = useState("");
   const [img, setImg] = useState([]);
-  const [movieObj, setMovieObj] = useState([]);
+  const [newData, setNewData] = useState([]);
   const objMovie = [];
 
   const takeMovie = () => {
     const getData = async () => {
       try {
-        const request = await axios.get("https://imdb-api.com/en/API/BoxOfficeAllTime/k_epjkd2kt");
-        const response = request.data.items;
-        const titleLoop = response.map(title => {
-          return title.title
-      })
-      setData(titleLoop)
-      // console.log(titleLoop)
-        
-        console.log("data title", data)
-        // setData(response.title.map((i) => i.title));
+        // const request = await axios.get(
+        //   "https://imdb-api.com/en/API/BoxOfficeAllTime/k_qdcao4ub"
+        // );
+        const response = dummyData;
+        const titleLoop = response.map((title) => {
+          return title.title;
+        });
+
+        ///batas
+        // const response = request.data.items;
+        // const titleLoop = response.map((title) => {
+        //   return title.title;
+        // });
+
+        setData(titleLoop);
       } catch (e) {
         console.log(e);
       }
     };
     getData();
-
-    const image = data.map((item) => item.title);
-    takeImg(data);
-    setMovieObj({ title: data, image: img });
-    objMovie.push({ title: data, image: img });
   };
 
   const takeImg = async (arr) => {
-    // for (let x of arr) {
-      const myResponse = await axios.get("https://www.omdbapi.com/?t=avatar&apikey=515aac75");
-      // setImg(myResponse.data);
-      // console.log(myResponse.data);
-    // }
+    for (let i = 0; i < 2; i++) {
+    const dataZero = data[i]
+
+
+      const request = await axios.get(
+        `https://www.omdbapi.com/?t=${dataZero}&apikey=515aac75`
+      );
+      
+      const response = request.data
+      
+
+      // console.log("ini blm set state",response)
+    newData.push(response)
+    }
+
+
+
+
+    // console.log(`ini array ke-${i}`)
+
+    // console.log(myResponse.data)
+    // let e = arr[0]
+
+    // console.log("my response", myResponse.data)
+    // console.log("response new title", myResponse)
   };
+
+  console.log("ini sudah set state", newData[0])
 
   // takeImg("avatar");
   useEffect(() => {
     takeMovie();
+    takeImg(data);
   }, []);
 
   return (
-    <View className="flex flex-column mt-2 items-center rounded" style={{ backgroundColor: "#3C4048", width: 320, height: 150 }}>
+    <View
+      className="flex flex-column mt-2 items-center rounded"
+      style={{ backgroundColor: "#3C4048", width: 320, height: 150 }}
+    >
       {/* {console.log(objMovie)} */}
       {/* {console.log(img)} */}
       {/* {console.log(dataTitle)} */}
@@ -98,11 +127,19 @@ const BoxOffice = () => {
   return (
     <View className="p-5" onLayout={onLayoutRootView}>
       <View className="flex flex-row">
-        <Text className="text-2xl text-white pr-2" style={{ fontFamily: "Inter-Medium" }}>
+        <Text
+          className="text-2xl text-white pr-2"
+          style={{ fontFamily: "Inter-Medium" }}
+        >
           Box Office
         </Text>
         <Text>
-          <AntDesign name="caretright" color={"white"} style={{ fontSize: 30 }} className="mr-6" />
+          <AntDesign
+            name="caretright"
+            color={"white"}
+            style={{ fontSize: 30 }}
+            className="mr-6"
+          />
         </Text>
       </View>
       <Cards />
