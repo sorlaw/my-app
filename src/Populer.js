@@ -6,6 +6,7 @@ import * as SplashScreen from "expo-splash-screen";
 import AntDesign from "react-native-vector-icons/AntDesign";
 import * as React from "react";
 import { useState, useEffect } from "react";
+// import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
 SplashScreen.preventAutoHideAsync();
 
