@@ -18,8 +18,16 @@ const Cards = () => {
   const takeMovie = () => {
     const getData = async () => {
       try {
-        const response = await axios.get("https://imdb-api.com/en/API/BoxOfficeAllTime/k_87ryrmk1");
-        setData(response.data.items.map((i) => i.title));
+        const request = await axios.get("https://imdb-api.com/en/API/BoxOfficeAllTime/k_epjkd2kt");
+        const response = request.data.items;
+        const titleLoop = response.map(title => {
+          return title.title
+      })
+      setData(titleLoop)
+      // console.log(titleLoop)
+        
+        console.log("data title", data)
+        // setData(response.title.map((i) => i.title));
       } catch (e) {
         console.log(e);
       }
@@ -28,16 +36,16 @@ const Cards = () => {
 
     const image = data.map((item) => item.title);
     takeImg(data);
-    // setMovieObj({ title: data, image: img });
+    setMovieObj({ title: data, image: img });
     objMovie.push({ title: data, image: img });
   };
 
   const takeImg = async (arr) => {
-    for (let x of arr) {
-      const myResponse = await axios.get("https://www.omdbapi.com/?t=" + x + "&apikey=515aac75");
-      setImg(myResponse.data.Poster);
-      console.log(myResponse);
-    }
+    // for (let x of arr) {
+      const myResponse = await axios.get("https://www.omdbapi.com/?t=avatar&apikey=515aac75");
+      // setImg(myResponse.data);
+      // console.log(myResponse.data);
+    // }
   };
 
   // takeImg("avatar");
@@ -54,7 +62,7 @@ const Cards = () => {
       {/* {data.map((item, i) => {
         setimgData(item.title);
       })} */}
-      <ScrollView horizontal={true}>
+      {/* <ScrollView horizontal={true}>
         {data &&
           data.map((item, i) => {
             return (
@@ -66,7 +74,7 @@ const Cards = () => {
               </View>
             );
           })}
-      </ScrollView>
+      </ScrollView> */}
       {/* <FlatList data={data} renderItem={renderItem} horizontal={true} ListFooterComponent={renderLoader} /> */}
     </View>
   );

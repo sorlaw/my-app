@@ -7,7 +7,7 @@ import { Text, View, TextInput } from "react-native";
 import Trending from "./src/Trending";
 import Searchbar from "./src/Searchbar";
 import Populer from "./src/Populer";
-// import BoxOffice from "./src/BoxOffice";
+import BoxOffice from "./src/BoxOffice";
 
 function HomeScreen() {
   // const navigation = useNavigation();
@@ -15,9 +15,9 @@ function HomeScreen() {
   return (
     <View className="" style={{ backgroundColor: "#3C4048" }}>
       <Searchbar />
-      <Trending />
-      <Populer />
-      {/* <BoxOffice /> */}
+      {/* <Trending /> */}
+      {/* <Populer /> */}
+      <BoxOffice />
     </View>
   );
 }
